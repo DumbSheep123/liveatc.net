@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlanta Tower</title>
+    <link rel="stylesheet" href="style.min.css">
+</head>
+
+<body>
+    <div class="loading-overlay" id="loadingOverlay">
+        <p class="loading-text">Loading...</p>
+        <button class="skip-button hidden" id="skipButton">Skip Loading</button>
+    </div>
+    <div class="audio-container hidden" id="audioContainer">
+        <h1>Atlanta Tower</h1>
+        <h2>
+            <code id="code"></code>
+        </h2>
+        <div class="peak-meter" id="peakMeter">
+            <div class="peak-level" id="peakLevel"></div>
+        </div>
+        <br>
+        <br>
+        <audio id="player2" crossorigin="anonymous" preload="none" src="https://s1-bos.liveatc.net/katl_twr"
+            type="audio/mp3" controls>
+        </audio>
+        <div class="form-group">
+            <input type="checkbox" id="togglePeakBar">
+            <label for="togglePeakBar">Toggle Peak Bar</label>
+        </div>
+    </div>
+
+    <script src="script.min.js"></script>
+    <script src="getmetar.js"></script>
+</body>
+
+</html>
