@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atlanta Tower</title>
-    <link rel="stylesheet" href="style.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="loading-overlay" id="loadingOverlay">
-        <p class="loading-text">Loading...</p>
+        <p class="loading-text">Loading Audio...</p>
         <button class="skip-button hidden" id="skipButton">Skip Loading</button>
     </div>
     <div class="audio-container hidden" id="audioContainer">
@@ -23,8 +23,8 @@
         </div>
         <br>
         <br>
-        <audio id="player2" crossorigin="anonymous" preload="none" src="https://s1-bos.liveatc.net/katl_twr"
-            type="audio/mp3" controls>
+        <audio id="player2" crossorigin="anonymous" preload="none" autoplay controls>
+            <source src="https://s1-bos.liveatc.net/katl_twr">
         </audio>
         <div class="form-group">
             <input type="checkbox" id="togglePeakBar">
@@ -32,9 +32,9 @@
         </div>
     </div>
 
-    <script src="script.min.js"></script>
-    <script src="getmetar.js"></script>
-    <script src="alert.js"></script>
+    <script src="script.js"></script>
+    <script src="getmetar.js" defer></script>
+    <!-- <script src="alert.js"></script> -->
 </body>
 
 </html>
