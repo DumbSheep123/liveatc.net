@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let audioCtx, source, analyser, scriptProcessor;
 
     const initAudioContext = () => {
-        audioCtx = new (window.AudioContext || window.AudioContext)();
+        // Feature detection for WebKit (Safari) and others
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         source = audioCtx.createMediaElementSource(audio);
         analyser = audioCtx.createAnalyser();
         analyser.fftSize = 512;
@@ -15,7 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
         source.connect(analyser);
         analyser.connect(audioCtx.destination);
 
-        scriptProcessor = audioCtx.createScriptProcessor(2048, 1, 1);
+        // Buffer size is 0 for Safari, 2048 otherwise
+        const bufferSize = window.webkitAudioContext ? 0 : 2048;
+        scriptProcessor = audioCtx.createScriptProcessor(bufferSize, 1, 1);
         analyser.connect(scriptProcessor);
         scriptProcessor.connect(audioCtx.destination);
     };
