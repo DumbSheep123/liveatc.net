@@ -1,26 +1,18 @@
-class PeakMeterProcessor extends AudioWorkletProcessor {
-    constructor() {
-        super();
-    }
-
+class MyAudioProcessor extends AudioWorkletProcessor {
     process(inputs, outputs, parameters) {
-        const input = inputs[0];
-        const output = outputs[0];
-        const inputData = input[0];
-        const outputData = output[0];
-        let max = 0;
-
-        for (let i = 0; i < inputData.length; i++) {
-            outputData[i] = inputData[i];
-            if (Math.abs(inputData[i]) > max) {
-                max = Math.abs(inputData[i]);
-            }
+      const input = inputs[0];
+      const output = outputs[0];
+  
+      for (let channel = 0; channel < input.length; ++channel) {
+        const inputChannel = input[channel];
+        const outputChannel = output[channel];
+        for (let i = 0; i < inputChannel.length; ++i) {
+          outputChannel[i] = inputChannel[i];
         }
-
-        this.port.postMessage({ peakLevel: max });
-
-        return true;
+      }
+  
+      return true;
     }
-}
-
-registerProcessor('peak-meter-processor', PeakMeterProcessor);
+  }
+  
+  registerProcessor('my-audio-processor', MyAudioProcessor);  
