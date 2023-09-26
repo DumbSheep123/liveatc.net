@@ -1,0 +1,6 @@
+audio.onerror = function () {
+    loadingOverlay.classList.add('fade-out');
+    setTimeout(function () {
+        loadingOverlay.classList.add('hidden');
+    }, 500);
+};
