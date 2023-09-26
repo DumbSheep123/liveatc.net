@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let audioCtx, source, analyser, scriptProcessor;
 
     const initAudioContext = () => {
-        // Feature detection for WebKit (Safari) and others
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         source = audioCtx.createMediaElementSource(audio);
         analyser = audioCtx.createAnalyser();
@@ -16,11 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
         source.connect(analyser);
         analyser.connect(audioCtx.destination);
 
-        // Buffer size is 0 for Safari, 2048 otherwise
         const bufferSize = window.webkitAudioContext ? 0 : 2048;
         scriptProcessor = audioCtx.createScriptProcessor(bufferSize, 1, 1);
         analyser.connect(scriptProcessor);
         scriptProcessor.connect(audioCtx.destination);
+
+        console.log('Audio context initialized:', audioCtx);
     };
 
     const startAudioContext = async () => {
@@ -29,6 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Audio context resumed.');
         }
     };
+
+    // Immediately initialize the audio context and other nodes
+    if (!audioCtx) {
+        initAudioContext();
+    }
 
     togglePeakBar.addEventListener('change', () => {
         peakMeter.style.display = togglePeakBar.checked ? 'block' : 'none';
@@ -43,6 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     audio.addEventListener('play', () => {
+        if (!audioCtx || !scriptProcessor) {
+            console.error('Audio context or scriptProcessor is not initialized.');
+            return;
+        }
+
         startAudioContext();
         scriptProcessor.onaudioprocess = (e) => {
             if (togglePeakBar.checked) {
