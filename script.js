@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let audioCtx, source, analyser, scriptProcessor;
 
     const initAudioContext = () => {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 44100 });
         source = audioCtx.createMediaElementSource(audio);
         analyser = audioCtx.createAnalyser();
         analyser.fftSize = 512;
@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Immediately initialize the audio context and other nodes
     if (!audioCtx) {
         initAudioContext();
     }
@@ -42,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    audio.addEventListener('canplaythrough', () => {
+    audio.addEventListener('canplay', () => {
         loadingOverlay.classList.add('fade-out');
         setTimeout(() => loadingOverlay.classList.add('hidden'), 500);
     });
@@ -53,12 +52,18 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        console.log(audioCtx.state);
+
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+
         startAudioContext();
         scriptProcessor.onaudioprocess = (e) => {
             if (togglePeakBar.checked) {
                 const inputData = e.inputBuffer.getChannelData(0);
                 const max = Math.max(...inputData);
-                const peakLevelWidth = max * 50;
+                const peakLevelWidth = max * 100;
 
                 peakLevel.style.display = peakLevelWidth === 0 ? 'none' : 'block';
                 peakLevel.style.width = `${Math.min(peakLevelWidth, 100)}%`;

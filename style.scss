@@ -76,36 +76,36 @@ audio {
     }
 }
 
-@supports (-webkit-touch-callout: none) {
-    audio::-webkit-media-controls {
-        display: none;
-    }
+// @supports (-webkit-touch-callout: none) {
+//     audio::-webkit-media-controls {
+//         display: none;
+//     }
 
-    audio::-webkit-media-controls-overlay-play-button {
-        width: 50px;
-        height: 50px;
-        background-color: #007bff;
-        border-radius: 50%;
-        border: none;
+//     audio::-webkit-media-controls-overlay-play-button {
+//         width: 50px;
+//         height: 50px;
+//         background-color: #007bff;
+//         border-radius: 50%;
+//         border: none;
 
-        &::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 20px;
-            height: 20px;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            margin-top: -10px;
-        }
-    }
+//         &::before {
+//             content: '';
+//             position: absolute;
+//             left: 50%;
+//             top: 50%;
+//             transform: translate(-50%, -50%);
+//             width: 20px;
+//             height: 20px;
+//             border-top: 10px solid transparent;
+//             border-bottom: 10px solid transparent;
+//             margin-top: -10px;
+//         }
+//     }
 
-    audio::-webkit-media-controls-overlay-play-button::before {
-        border-left: 20px solid #ffffff;
-    }
-}
+//     audio::-webkit-media-controls-overlay-play-button::before {
+//         border-left: 20px solid #ffffff;
+//     }
+// }
 
 .loading-overlay {
     position: fixed;
