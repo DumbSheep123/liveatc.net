@@ -1,4 +1,4 @@
-const url = 'https://metar.madebyesmel.com/KATL';
+const url = 'https://metar.madebyesmel.com/KLAX';
 const code = document.getElementById('code');
 
 fetch(url)
